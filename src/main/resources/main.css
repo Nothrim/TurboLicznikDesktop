@@ -1,0 +1,12 @@
+.text-field-generated{
+    -fx-background-color:#3366FF;
+      -fx-border-insets: 0;
+        -fx-border-width: 1px;
+        -fx-border-color: black black gray black;
+}
+.text-field-generated2{
+    -fx-background-color:#00B8F5;
+      -fx-border-insets: 0;
+        -fx-border-width: 0.75px;
+        -fx-border-color: black black gray black;
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="50.0" minWidth="200.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: 567714;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.Controller">
+   <children>
+      <VBox fx:id="output" layoutY="45.0" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="200.0" prefHeight="378.0" prefWidth="600.0" style="-fx-background-color: 567714;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+         <padding>
+            <Insets top="10.0" />
+         </padding></VBox>
+      <HBox maxWidth="1.7976931348623157E308" prefHeight="31.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button fx:id="install" minWidth="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" style="-fx-background-color: D4EE99;" text="Install" />
+            <Button fx:id="load" minWidth="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: D4EE9B;" text="Load" />
+            <Button fx:id="stop" minWidth="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" style="-fx-background-color: D4EE9C;" text="Stop" />
+            <Button fx:id="save" minWidth="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" style="-fx-background-color: D4EE9F;" text="Save" />
+            <TextField fx:id="path" prefHeight="30.0" prefWidth="600.0" promptText="File path" style="-fx-background-color: ECF9D2;" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
