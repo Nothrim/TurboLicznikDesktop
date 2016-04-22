@@ -17,7 +17,7 @@ public class Main extends Application {
             primaryStage.getScene().getStylesheets().add("main.css");
             primaryStage.show();
         }
-        catch (Exception e){e.printStackTrace();}
+        catch (Exception ignored){}
     }
 
 

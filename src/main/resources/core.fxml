@@ -5,19 +5,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="50.0" minWidth="200.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: 567714;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="50.0" minWidth="200.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #0092CC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="core.Controller">
    <children>
-      <VBox fx:id="output" layoutY="45.0" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="200.0" prefHeight="378.0" prefWidth="600.0" style="-fx-background-color: 567714;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+      <VBox fx:id="output" layoutY="26.0" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="200.0" prefHeight="383.0" prefWidth="600.0" style="-fx-background-color: #323232;" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
          <padding>
             <Insets top="10.0" />
          </padding></VBox>
       <HBox maxWidth="1.7976931348623157E308" prefHeight="31.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="install" minWidth="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" style="-fx-background-color: D4EE99;" text="Install" />
-            <Button fx:id="load" minWidth="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: D4EE9B;" text="Load" />
-            <Button fx:id="stop" minWidth="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" style="-fx-background-color: D4EE9C;" text="Stop" />
-            <Button fx:id="save" minWidth="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" style="-fx-background-color: D4EE9F;" text="Save" />
-            <TextField fx:id="path" prefHeight="30.0" prefWidth="600.0" promptText="File path" style="-fx-background-color: ECF9D2;" />
+            <Button fx:id="install" minWidth="50.0" mnemonicParsing="false" prefHeight="1.0" prefWidth="50.0" style="-fx-background-color: #087099; -fx-background-radius: 0; -fx-text-fill: #F0F0F0;" text="Install" />
+            <Button fx:id="load" minWidth="50.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="50.0" style="-fx-background-color: #087099; -fx-background-radius: 0; -fx-text-fill: #F0F0F0;" text="Load" />
+            <Button fx:id="stop" minWidth="50.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="50.0" style="-fx-background-color: #087099; -fx-background-radius: 0; -fx-text-fill: #F0F0F0;" text="Stop" />
+            <Button fx:id="save" minWidth="50.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="50.0" style="-fx-background-color: #087099; -fx-background-radius: 0; -fx-text-fill: #F0F0F0;" text="Save" />
+            <TextField fx:id="path" prefHeight="26.0" prefWidth="400.0" promptText="File path" style="-fx-background-color: #0092CC; -fx-background-radius: 0; -fx-text-fill: #F0F0F0; -fx-prompt-text-fill: #F0F0B0;" />
          </children>
       </HBox>
    </children>

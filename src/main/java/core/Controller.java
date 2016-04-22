@@ -2,26 +2,24 @@ package core;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sun.deploy.util.WinRegistry;
 import gui.Record;
 import gui.Time;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import pdf.OutputPdfDocument;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +28,6 @@ import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 public class Controller implements Initializable {
-    public static String BAT_FILE_PATH;
     @FXML
     Button install;
     @FXML
@@ -57,7 +54,11 @@ public class Controller implements Initializable {
             try {
                 map=new Gson().fromJson(new FileReader(path.getText()),new TypeToken<Map<String, List<Long>>>() {}.getType());
             } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
+              Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("File is missing");
+                alert.setHeaderText(e1.getMessage());
+                alert.setContentText("There is no file named data.json in "+path.getText());
+                alert.showAndWait();
             }
 
             for(Map.Entry<String,List<Long>>entry : map.entrySet()) {
@@ -69,23 +70,53 @@ public class Controller implements Initializable {
             output.getChildren().add(label);
         });
         save.setOnMouseClicked(e->{
-            if(map!=null)
-            new OutputPdfDocument(output,"godziny "+new SimpleDateFormat("MMMM").format(new Date())+".pdf");
+            if(map!=null)try {
+                new OutputPdfDocument(output, "godziny " + new SimpleDateFormat("MMMM").format(new Date()) + ".pdf");
+            }catch (Exception e1){
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("File is used");
+                alert.setHeaderText(e1.getMessage());
+                alert.setContentText("The PDF file is used by another program");
+                alert.showAndWait();
+            }
         });
         install.setOnMouseClicked(e->{
             String path=System.getProperty("user.dir") + "\\TurboLicznik.jar";
-            WinRegistry.setStringValue(WinRegistry.HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion\\Run", "TurboLicznik autorun key", path);
+            try {
+                WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER,
+                        "Software\\Microsoft\\Windows\\CurrentVersion\\Run", "TurboLicznik autorun key", path,1);
+            } catch (IllegalAccessException | InvocationTargetException e1) {
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Can't access register");
+                alert.setHeaderText(e1.getMessage());
+                alert.setContentText("Try running this program as administrator to make changes in register");
+                alert.showAndWait();
+            }
         });
         stop.setOnMouseClicked(e->{
             if(start){
                 stop.setText("Stop");
+                try {
 
+                    //String command="java -jar " +path.substring(0,getSlashIndex(path)) +"TurboLicznik.jar";
+                    Runtime.getRuntime().exec("java -jar TurboLicznik.jar");
+                } catch (IOException e1) {
+                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Tray application was already running");
+                    alert.setHeaderText(e1.getMessage());
+                    alert.showAndWait();
+                }
             }else {
                 try {
-                    new Socket(InetAddress.getByName(null), 8331);
                     stop.setText("Start");
+                    new Socket(InetAddress.getByName(null), 8331);
                 } catch (IOException e1) {
-                    e1.printStackTrace();
+                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Can't find tray application");
+                    alert.setHeaderText(e1.getMessage());
+                    alert.setContentText("Probably tray application hasn't been loaded properly, try to re run it");
+                    alert.showAndWait();
+
                 }
             }
             start=!start;
@@ -108,6 +139,13 @@ public class Controller implements Initializable {
         if(label!=null)label.setText(new Time(sum).toString());
 
 
+    }
+    private int getSlashIndex(String s){
+        int index=0;
+        for(int i=s.length()-1;i>0;i--){
+            if(s.charAt(i)=='/')return i+1;
+        }
+        return index;
     }
 
 }
