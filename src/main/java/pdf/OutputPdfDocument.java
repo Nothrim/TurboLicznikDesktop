@@ -25,22 +25,25 @@ public class OutputPdfDocument {
         int currentY = PAGE_TOP;
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
             contentStream.setFont(font, 8);
+        contentStream.setNonStrokingColor(80,80,80);
+        contentStream.addRect(0,0,PAGE_TOP,PAGE_TOP+35);
+        contentStream.fill();
             contentStream.setStrokingColor(0,0,0);
             for(Node n:data.getChildren()) {
                 if(n instanceof Record) {
                     contentStream.addRect(currentX, currentY, 15, 20);
-                    contentStream.setNonStrokingColor(0, 57, 80);
+                    contentStream.setNonStrokingColor(0, 114, 160);
                     contentStream.fill();
-                    contentStream.addRect(currentX - 1, currentY - 1, 15 + 1, 20 + 1);
-                    contentStream.stroke();
+//                    contentStream.addRect(currentX - 1, currentY - 1, 15 + 1, 20 + 1);
+//                    contentStream.stroke();
                     currentX += 15;
                     for (TextField l : ((Record) n).fields) {
                         contentStream.addRect(currentX, currentY, 45, 20);
-                        contentStream.setNonStrokingColor(3, 44, 60);
+                        contentStream.setNonStrokingColor(6, 88, 120);
                         contentStream.fill();
-                        contentStream.addRect(currentX - 1, currentY - 1, 45 + 1, 20 + 1);
-                        contentStream.setStrokingColor(0, 0, 0);
-                        contentStream.stroke();
+//                        contentStream.addRect(currentX - 1, currentY - 1, 45 + 1, 20 + 1);
+//                        contentStream.setStrokingColor(0, 0, 0);
+//                        contentStream.stroke();
                         currentX += 55;
                     }
                     currentX = 0;
@@ -49,12 +52,12 @@ public class OutputPdfDocument {
             }
             contentStream.addRect(currentX+1,currentY-30,35,20);
             contentStream.fill();
-            contentStream.addRect(currentX , currentY - 31, 35, 20 + 1);
-            contentStream.stroke();
+//            contentStream.addRect(currentX , currentY - 31, 35, 20 + 1);
+//            contentStream.stroke();
             contentStream.addRect(currentX+30+35,currentY-30,55,20);
             contentStream.fill();
-            contentStream.addRect(currentX + 31+35, currentY - 31, 55, 20 + 1);
-            contentStream.stroke();
+//            contentStream.addRect(currentX + 31+35, currentY - 31, 55, 20 + 1);
+//            contentStream.stroke();
             contentStream.beginText();
             contentStream.setNonStrokingColor(240,240,240);
             currentX=5;

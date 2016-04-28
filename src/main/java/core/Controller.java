@@ -20,6 +20,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -68,6 +70,7 @@ public class Controller implements Initializable {
             }
             label=new Label(new Time(sum).toString());
             output.getChildren().add(label);
+            label.setStyle("-fx-text-fill:#F0F0F0");
         });
         save.setOnMouseClicked(e->{
             if(map!=null)try {
@@ -82,6 +85,14 @@ public class Controller implements Initializable {
         });
         install.setOnMouseClicked(e->{
             String path=System.getProperty("user.dir") + "\\TurboLicznik.jar";
+            try {
+                Files.write(Paths.get(System.getProperty("user.home")+File.separator+"data.json"),"{}".getBytes());
+            } catch (IOException e1) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Can't create file");
+                alert.setHeaderText(e1.getMessage());
+                alert.showAndWait();
+            }
             try {
                 WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER,
                         "Software\\Microsoft\\Windows\\CurrentVersion\\Run", "TurboLicznik autorun key", path,1);
