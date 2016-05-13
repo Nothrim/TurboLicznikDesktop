@@ -10,16 +10,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import pdf.OutputPdfDocument;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -42,13 +42,27 @@ public class Controller implements Initializable {
     TextField path;
     @FXML
     VBox output;
+    @FXML
+    HBox buttonBox;
     Label label;
     boolean start=false;
     long sum=0;
     private Map<String,List<Long>>map;
     public static Controller pointer;
     public void initialize(URL location, ResourceBundle resources) {
-
+        buttonBox.getChildren().stream().filter(e->e instanceof Button).forEach(e->{
+            e.getStyleClass().add("button-normal");
+            e.setOnMousePressed(ev->e.getStyleClass().add("button-clicked"));
+            e.setOnMouseReleased(ev->e.getStyleClass().removeAll("button-clicked"));
+        });
+        String runPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        runPath = clearPathString(runPath);
+        try {
+            runPath= URLDecoder.decode(runPath, "UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+        }
+        final String runPathFinal=runPath;
         pointer=this;
         path.setText(System.getProperty("user.home")+ File.separator+"data.json");
         load.setOnMouseClicked(e->{
@@ -62,7 +76,7 @@ public class Controller implements Initializable {
                 alert.setContentText("There is no file named data.json in "+path.getText());
                 alert.showAndWait();
             }
-
+            sum=0;
             for(Map.Entry<String,List<Long>>entry : map.entrySet()) {
                 sum+=entry.getValue().stream().mapToLong(Long::longValue).map(TimeUnit.MILLISECONDS::toMinutes).sum();
                 output.getChildren().add(new Record(entry.getKey(),entry.getValue().stream().map(TimeUnit.MILLISECONDS::toMinutes)
@@ -84,7 +98,6 @@ public class Controller implements Initializable {
             }
         });
         install.setOnMouseClicked(e->{
-            String path=System.getProperty("user.dir") + "\\TurboLicznik.jar";
             try {
                 Files.write(Paths.get(System.getProperty("user.home")+File.separator+"data.json"),"{}".getBytes());
             } catch (IOException e1) {
@@ -95,7 +108,7 @@ public class Controller implements Initializable {
             }
             try {
                 WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER,
-                        "Software\\Microsoft\\Windows\\CurrentVersion\\Run", "TurboLicznik autorun key", path,1);
+                        "Software\\Microsoft\\Windows\\CurrentVersion\\Run", "TurboLicznik autorun key", runPathFinal+"TurboLicznik.jar",1);
             } catch (IllegalAccessException | InvocationTargetException e1) {
                 Alert alert=new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Can't access register");
@@ -103,6 +116,10 @@ public class Controller implements Initializable {
                 alert.setContentText("Try running this program as administrator to make changes in register");
                 alert.showAndWait();
             }
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Done");
+            alert.setHeaderText("Installation completed successfully");
+            alert.showAndWait();
         });
         stop.setOnMouseClicked(e->{
             if(start){
@@ -110,7 +127,7 @@ public class Controller implements Initializable {
                 try {
 
                     //String command="java -jar " +path.substring(0,getSlashIndex(path)) +"TurboLicznik.jar";
-                    Runtime.getRuntime().exec("java -jar TurboLicznik.jar");
+                    Runtime.getRuntime().exec("java -jar \""+runPathFinal+"TurboLicznik.jar\"");
                 } catch (IOException e1) {
                     Alert alert=new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Tray application was already running");
@@ -158,5 +175,16 @@ public class Controller implements Initializable {
         }
         return index;
     }
-
+    public static String clearPathString(String in)
+    {
+        StringBuilder sb=new StringBuilder(in);
+        if(System.getProperty("os.name").contains("Windows") && sb.charAt(0)=='/')sb.deleteCharAt(0);
+        for(int i=sb.length()-1;i>0;i--)
+        {
+            if(sb.charAt(i)!='/')sb.deleteCharAt(i);
+            else
+                return sb.toString();
+        }
+        return sb.toString();
+    }
 }

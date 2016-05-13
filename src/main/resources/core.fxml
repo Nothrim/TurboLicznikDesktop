@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -11,12 +9,12 @@
          <padding>
             <Insets top="10.0" />
          </padding></VBox>
-      <HBox maxWidth="1.7976931348623157E308" prefHeight="31.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="buttonBox" maxWidth="1.7976931348623157E308" prefHeight="31.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="install" minWidth="50.0" mnemonicParsing="false" prefHeight="1.0" prefWidth="50.0" style="-fx-background-color: #087099; -fx-background-radius: 0; -fx-text-fill: #F0F0F0;" text="Install" />
-            <Button fx:id="load" minWidth="50.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="50.0" style="-fx-background-color: #087099; -fx-background-radius: 0; -fx-text-fill: #F0F0F0;" text="Load" />
-            <Button fx:id="stop" minWidth="50.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="50.0" style="-fx-background-color: #087099; -fx-background-radius: 0; -fx-text-fill: #F0F0F0;" text="Stop" />
-            <Button fx:id="save" minWidth="50.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="50.0" style="-fx-background-color: #087099; -fx-background-radius: 0; -fx-text-fill: #F0F0F0;" text="Save" />
+            <Button fx:id="install" minWidth="50.0" mnemonicParsing="false" prefHeight="1.0" prefWidth="50.0"  text="Install" />
+            <Button fx:id="load" minWidth="50.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="50.0" text="Load" />
+            <Button fx:id="stop" minWidth="50.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="50.0" text="Stop" />
+            <Button fx:id="save" minWidth="50.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="50.0" text="Save" />
             <TextField fx:id="path" prefHeight="26.0" prefWidth="400.0" promptText="File path" style="-fx-background-color: #0092CC; -fx-background-radius: 0; -fx-text-fill: #F0F0F0; -fx-prompt-text-fill: #F0F0B0;" />
          </children>
       </HBox>

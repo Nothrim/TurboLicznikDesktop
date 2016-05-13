@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         try {
@@ -17,7 +16,7 @@ public class Main extends Application {
             primaryStage.getScene().getStylesheets().add("main.css");
             primaryStage.show();
         }
-        catch (Exception ignored){}
+        catch (Exception ignored){ignored.printStackTrace();}
     }
 
 

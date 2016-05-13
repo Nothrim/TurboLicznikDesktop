@@ -10,3 +10,13 @@
         -fx-border-width: 0.75px;
         -fx-border-color: black black gray black;
 }
+.button-normal{
+-fx-background-color: #087099;
+    -fx-background-radius: 0;
+        -fx-text-fill: #F0F0F0;
+}
+.button-clicked{
+-fx-background-color: #FF4500;
+ -fx-background-radius: 0;
+  -fx-text-fill: #F0F0F0;
+}
